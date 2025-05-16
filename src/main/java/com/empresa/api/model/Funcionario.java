@@ -1,4 +1,4 @@
-package com.empresa.funcionario;
+package com.empresa.api.model;
 //Model de funcionarios
 public class Funcionario {
     public int id;

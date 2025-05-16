@@ -1,7 +1,10 @@
-package com.empresa.funcionario;
+package com.empresa.api.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.empresa.api.model.Funcionario;
+
 import io.javalin.http.Context;
 
 

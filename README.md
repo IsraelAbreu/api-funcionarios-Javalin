@@ -8,7 +8,7 @@ Este é um projeto de estudo construído com o microframework **[Javalin](https:
 Neste momento, o projeto está na fase inicial com foco em **CRUD básico** (Create, Read) utilizando apenas:
 - `Model`
 - `Controller`
-- `Rotas diretas` no arquivo `Main`
+- `Rotas diretas` no arquivo `App`
 
 Pretendo evoluir para:
 - Implementar a camada de `Service`

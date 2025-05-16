@@ -1,6 +1,6 @@
 package com.empresa;
 
-import com.empresa.funcionario.FuncionarioController;
+import com.empresa.api.controller.FuncionarioController;
 
 import io.javalin.Javalin;
 
@@ -9,8 +9,9 @@ import io.javalin.Javalin;
  */
 public class App {
     public static void main(String[] args) {
-        var app = Javalin.create(); //Sem CORS por enquanto
+        var app = Javalin.create();
 
+        //Rotas
         app.get("/", ctx -> ctx.result("Api de Funcionarios no ar! 🚀"));
         app.get("/funcionarios", FuncionarioController::listarFuncionarios);
         app.post("/funcionarios", FuncionarioController::criar);
@@ -18,7 +19,6 @@ public class App {
         app.delete("/funcionarios/{id}", FuncionarioController::deletarFuncionario);
 
         app.start(7000);
-        //Endpoints
         
     }
 }

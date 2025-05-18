@@ -11,7 +11,6 @@ Neste momento, o projeto está na fase inicial com foco em **CRUD básico** (Cre
 - `Rotas diretas` no arquivo `App`
 
 Pretendo evoluir para:
-- Implementar a camada de `Service`
 - Adicionar `validações`
 - Melhorar a estrutura do projeto
 - Utilizar banco de dados futuramente
@@ -19,10 +18,12 @@ Pretendo evoluir para:
 ---
 - [x] Criar um novo funcionário (POST `/funcionarios`)
 - [x] Listar todos os funcionários (GET `/funcionarios`)
-- [x] Buscar funcionário por ID (GET `/funcionarios/id`)
-- [x] Deletar funcionário (DELETE `/funcionarios/id`)
-- [ ] Atualizar funcionário (em breve)
+- [x] Buscar funcionário por ID (GET `/funcionarios/{id}`)
+- [x] Deletar funcionário (DELETE `/funcionarios/{id}`)
+- [x] Atualizar funcionário (PUT `/funcionarios/{id}`)
 
+Evoluindo o projeto
+- [x] Implementar a camada de `Service`
 ---
 
 ## ▶️ Como rodar o projeto

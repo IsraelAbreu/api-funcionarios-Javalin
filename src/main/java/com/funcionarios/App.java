@@ -1,5 +1,7 @@
 package com.funcionarios;
 
+
+
 import com.funcionarios.controller.FuncionarioController;
 
 import io.javalin.Javalin;
@@ -15,10 +17,11 @@ public class App {
         //Rotas
         app.get("/", ctx -> ctx.result("Api de Funcionarios no ar! 🚀"));
         
-        app.get("/funcionarios", funcionarioController::listarTodos);
-        // app.post("/funcionarios", FuncionarioController::criar);
-        // app.get("/funcionarios/{id}", FuncionarioController::buscarFuncionario);
-        // app.delete("/funcionarios/{id}", FuncionarioController::deletarFuncionario);
+        app.get("/funcionarios", ctx -> funcionarioController.listarTodos(ctx));
+        app.post("/funcionarios", ctx -> funcionarioController.criarFuncionario(ctx));
+        app.get("/funcionarios/{id}", ctx -> funcionarioController.buscarFuncionario(ctx));
+        app.put("/funcionarios/{id}", ctx -> funcionarioController.atualizarFuncionario(ctx));
+        app.delete("/funcionarios/{id}", ctx -> funcionarioController.deletar(ctx));
 
         app.start(7000);
         

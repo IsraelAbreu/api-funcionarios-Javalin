@@ -23,9 +23,17 @@ public class FuncionarioService {
         }
 
         public Funcionario criar(Funcionario funcionario) {
-            funcionario.setId(proximoId); 
+            funcionario.setId(proximoId++); 
             funcionarios.add(funcionario);
             return funcionario;
+        }
+
+        public Optional<Funcionario> atualizar(int id, Funcionario dadosAtualizados) {
+            return buscarFuncionario(id).map(funcionarioExistente -> {
+                funcionarioExistente.setNome(dadosAtualizados.getNome());
+                funcionarioExistente.setEmail(dadosAtualizados.getEmail());
+                return funcionarioExistente;
+            });
         }
 
         public boolean deletar(int id) {

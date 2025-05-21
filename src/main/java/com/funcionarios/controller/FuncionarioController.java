@@ -1,6 +1,7 @@
 package com.funcionarios.controller;
 
 import com.funcionarios.model.Funcionario;
+import com.funcionarios.response.ApiResponse;
 import com.funcionarios.service.FuncionarioService;
 
 import io.javalin.http.Context;
@@ -24,11 +25,22 @@ public class FuncionarioController {
     }
 
     public void criarFuncionario(Context ctx) { 
-        Funcionario novoFuncionario = ctx.bodyAsClass(Funcionario.class);
+        try {
+            Funcionario novoFuncionario = ctx.bodyAsClass(Funcionario.class);
+            Funcionario criado = service.criar(novoFuncionario);
+            ctx.status(201).json(new ApiResponse<>(true, "Funcionário criar com sucesso!", criado));
+        } catch (IllegalArgumentException e) {
+            //Falha na validação
+            ctx.status(400).json(new ApiResponse<>(false, e.getMessage(), null));
+        } catch (Exception e) {
+            //Segundo cath para pegar qualquer outro erro inesperado
+            ctx.status(500).json(new ApiResponse<>(false, e.getMessage(), null));
+        }
+      
 
-        Funcionario criado = service.criar(novoFuncionario);
+        
 
-        ctx.status(HttpStatus.CREATED).json(criado);
+       
     }
 
     public void atualizarFuncionario(Context ctx) {

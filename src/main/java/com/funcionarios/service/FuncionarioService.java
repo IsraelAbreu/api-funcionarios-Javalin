@@ -9,34 +9,47 @@ import com.funcionarios.model.Funcionario;
 
 public class FuncionarioService {
 
-        private final List<Funcionario> funcionarios = new ArrayList<>();
-        private int proximoId = 1;
-
-        public List<Funcionario> listarTodos() {
-            return funcionarios;
+    // Validação
+    public void validarFuncionario(Funcionario funcionario) {
+        if (funcionario.getNome() == null || funcionario.getNome().isBlank()) {
+            throw new IllegalArgumentException("O nome é obrigatorio");
         }
-
-        public Optional<Funcionario> buscarFuncionario(int id) {
-            return funcionarios.stream()
-                .filter(u -> u.getId() == id)
-                .findFirst();
+        if (funcionario.getEmail() == null || funcionario.getEmail().isBlank()) {
+            throw new IllegalArgumentException("E-mail inválido");
         }
+    }
 
-        public Funcionario criar(Funcionario funcionario) {
-            funcionario.setId(proximoId++); 
-            funcionarios.add(funcionario);
-            return funcionario;
-        }
+    private final List<Funcionario> funcionarios = new ArrayList<>();
+    private int proximoId = 1;
+    //Services para o CRUD
+    public List<Funcionario> listarTodos() {
+        return funcionarios;
+    }
 
-        public Optional<Funcionario> atualizar(int id, Funcionario dadosAtualizados) {
-            return buscarFuncionario(id).map(funcionarioExistente -> {
-                funcionarioExistente.setNome(dadosAtualizados.getNome());
-                funcionarioExistente.setEmail(dadosAtualizados.getEmail());
-                return funcionarioExistente;
-            });
-        }
+    public Optional<Funcionario> buscarFuncionario(int id) {
+        return funcionarios.stream()
+            .filter(u -> u.getId() == id)
+            .findFirst();
+    }
 
-        public boolean deletar(int id) {
-            return funcionarios.removeIf(u -> u.getId() == id);
-        }
+    public Funcionario criar(Funcionario funcionario) {
+
+        validarFuncionario(funcionario);
+
+        funcionario.setId(proximoId++); 
+        funcionarios.add(funcionario);
+        return funcionario;
+    }
+
+    public Optional<Funcionario> atualizar(int id, Funcionario dadosAtualizados) {
+        return buscarFuncionario(id).map(funcionarioExistente -> {
+            funcionarioExistente.setNome(dadosAtualizados.getNome());
+            funcionarioExistente.setEmail(dadosAtualizados.getEmail());
+            return funcionarioExistente;
+        });
+    }
+
+    public boolean deletar(int id) {
+        return funcionarios.removeIf(u -> u.getId() == id);
+    }
 }

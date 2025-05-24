@@ -11,8 +11,6 @@ Neste momento, o projeto está na fase inicial com foco em **CRUD básico** (Cre
 - `Rotas diretas` no arquivo `App`
 
 Pretendo evoluir para:
-- Adicionar `validações`
-- Melhorar a estrutura do projeto
 - Utilizar banco de dados futuramente
 
 ---
@@ -23,7 +21,9 @@ Pretendo evoluir para:
 - [x] Atualizar funcionário (PUT `/funcionarios/{id}`)
 
 Evoluindo o projeto
+- [x] Melhoria na estrutura do projeto.
 - [x] Implementar a camada de `Service`
+- [x] Implementar API Response `Adicionar Validações`
 ---
 
 ## ▶️ Como rodar o projeto

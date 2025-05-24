@@ -36,32 +36,33 @@ public class FuncionarioController {
             //Segundo cath para pegar qualquer outro erro inesperado
             ctx.status(500).json(new ApiResponse<>(false, e.getMessage(), null));
         }
-      
-
-        
-
-       
     }
 
     public void atualizarFuncionario(Context ctx) {
-        int id = Integer.parseInt(ctx.pathParam("id"));
-        Funcionario dadosAtualizados = ctx.bodyAsClass(Funcionario.class);
+        try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            Funcionario dadosAtualizados = ctx.bodyAsClass(Funcionario.class);
+            
+            Funcionario funcionarioAtualizado = service.atualizar(id, dadosAtualizados);
 
-        service.atualizar(id, dadosAtualizados)
-            .ifPresentOrElse(atualizado -> ctx.json(atualizado), 
-                () -> ctx.status(HttpStatus.NOT_FOUND)
-            );  
+            ctx.status(200).json(new ApiResponse<>(true, "Funcionário atualizado!", funcionarioAtualizado));
+        } catch (IllegalArgumentException e) {
+            ctx.status(400).json(new ApiResponse<>(false, e.getMessage(), null));
+        } catch (Exception e) {
+            ctx.status(500).json(new ApiResponse<>(false, "Erro interno no servidor.", null));
+        }
     }
 
     public void deletar(Context ctx) { 
-         int id = Integer.parseInt(ctx.pathParam("id"));
+        try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+            service.deletar(id);
+            ctx.status(202).json(new ApiResponse<>(true, "Funcionário removido!", null));
 
-         boolean removido = service.deletar(id);
-
-         if (removido) {
-            ctx.status(HttpStatus.NO_CONTENT);
-         } else {
-            ctx.status(HttpStatus.NOT_FOUND);
-         }
+        } catch (IllegalArgumentException e) {
+            ctx.status(400).json(new ApiResponse<>(false, e.getMessage(), null));
+        } catch (Exception e) {
+            ctx.status(500).json(new ApiResponse<>(false, "Erro interno no servidor.", null));
+        }
     }
 }

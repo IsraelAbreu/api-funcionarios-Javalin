@@ -41,12 +41,23 @@ public class FuncionarioService {
         return funcionario;
     }
 
-    public Optional<Funcionario> atualizar(int id, Funcionario dadosAtualizados) {
-        return buscarFuncionario(id).map(funcionarioExistente -> {
-            funcionarioExistente.setNome(dadosAtualizados.getNome());
-            funcionarioExistente.setEmail(dadosAtualizados.getEmail());
-            return funcionarioExistente;
-        });
+    public Funcionario atualizar(int id, Funcionario dadosAtualizados) {
+
+        if (dadosAtualizados.getNome() == null || dadosAtualizados.getNome().isBlank()) {
+            throw new IllegalArgumentException("O campo nome é obrigatório");
+        }
+
+        if (dadosAtualizados.getEmail() == null || dadosAtualizados.getEmail().isBlank()) {
+            throw new IllegalArgumentException("O campo e-mail é obrigatório");
+        }
+    
+        Funcionario existente = buscarFuncionario(id)
+            .orElseThrow(() -> new IllegalArgumentException("Funcionário com ID " + id + " não encontrado"));
+
+        existente.setNome(dadosAtualizados.getNome());
+        existente.setEmail(dadosAtualizados.getEmail());
+        
+        return existente;
     }
 
     public boolean deletar(int id) {
